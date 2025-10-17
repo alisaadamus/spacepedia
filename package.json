@@ -12,8 +12,12 @@
     "test:e2e": "cypress open"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
+    "*.{js,ts,jsx,tsx,json}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{css,scss}": [
+      "stylelint --fix",
       "prettier --write"
     ]
   },

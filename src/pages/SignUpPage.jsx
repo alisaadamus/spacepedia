@@ -4,19 +4,21 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import './Auth.css';
 
-const LoginPage = () => {
+const SignUp = () => {
   return (
     <>
       <Header />
       <main className="auth-main">
         <div className="auth-container">
           <div className="auth-card">
-            <h2 className="auth-title">Авторизація</h2>
+            <h2 className="auth-title">Реєстрація</h2>
             <form className="auth-form">
-              <Input placeholder="Логін або email..." type="text" />
+              <Input placeholder="Email..." type="email" />
+              <Input placeholder="Логін..." type="text" />
               <Input placeholder="Пароль..." type="password" />
+              <Input placeholder="Підтвердження пароля..." type="password" />
               <Button type="submit" className="auth-button">
-                Увійти
+                Зареєструватися
               </Button>
             </form>
           </div>
@@ -26,4 +28,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUp;

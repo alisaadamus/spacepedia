@@ -1,0 +1,15 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-stylistic"],
+  "rules": {
+    "stylistic/indentation": 2,
+    "stylistic/color-hex-case": "lower",
+    "stylistic/number-leading-zero": "always",
+    "stylistic/max-line-length": null,
+    "color-hex-length": "short",
+    "alpha-value-notation": "number",
+    "color-function-notation": "modern",
+    "property-no-vendor-prefix": true,
+    "no-descending-specificity": null
+  }
+}

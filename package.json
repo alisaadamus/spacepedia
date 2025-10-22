@@ -17,6 +17,9 @@
     "**/*.{js,jsx,ts,tsx,json,md,html}": [
       "prettier --write"
     ],
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
     "**/*.{css,scss,sass}": [
       "stylelint --fix"
     ]

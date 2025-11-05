@@ -3,9 +3,9 @@
   top: 0;
   z-index: 1000;
   padding: 1rem 0;
-  background: rgb(10 10 10 / 0.95);
+  background: rgb(10 10 10 / 95%);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
 }
 
 .header-container {
@@ -89,13 +89,28 @@
   right: 0.8rem;
   margin-top: 0.5rem;
   background: var(--background-secondary);
-  border: 1px solid rgb(255 255 255 / 0.1);
+  border: 1px solid rgb(255 255 255 / 10%);
   border-radius: 8px;
   padding: 0.5rem 0;
-  box-shadow: 0 8px 32px rgb(0 0 0 / 0.3);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 30%);
   backdrop-filter: blur(20px);
   z-index: 1001;
 }
+
+.dropdown-user-info {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+  cursor: default;
+}
+
+.dropdown-user-info span {
+  font-size: 1rem;
+  color: var(--text-secondary);
+    display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 
 .dropdown-item {
   display: block;
@@ -103,6 +118,9 @@
   color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  background: none;
   width: 100%;
   text-align: left;
   cursor: pointer;

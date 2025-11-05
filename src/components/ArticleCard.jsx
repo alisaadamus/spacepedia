@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import './ArticleCard.css';
 import Button from './Button.jsx';
 
@@ -9,6 +10,10 @@ const ArticleCard = ({
   readTime,
 }) => {
   const hasImage = image && imagePosition !== 'none';
+  const navigate = useNavigate();
+  const handleArticleClick = () => {
+    navigate('/article');
+  };
 
   return (
     <article className="article-card">
@@ -22,7 +27,7 @@ const ArticleCard = ({
           <p className="article-description">{description}</p>
           <div className="article-footer">
             <span className="article-time">{readTime}</span>
-            <Button>Перейти →</Button>
+            <Button onClick={handleArticleClick}>Перейти →</Button>
           </div>
         </div>
 

@@ -1,19 +1,24 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop';
 import ArticlePage from './pages/ArticlePage';
 import CategoryPage from './pages/CategoryPage';
-import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
+import MainPage from './pages/MainPage';
 import SignUpPage from './pages/SignUpPage';
-const currentPage = 'login';
 
 function App() {
   return (
-    <>
-      {currentPage === 'main' && <MainPage />}
-      {currentPage === 'category' && <CategoryPage />}
-      {currentPage === 'article' && <ArticlePage />}
-      {currentPage === 'login' && <LoginPage />}
-      {currentPage === 'signup' && <SignUpPage />}
-    </>
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/category" element={<CategoryPage />} />
+        <Route path="/article" element={<ArticlePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="*" element={<h1>404 — Сторінку не знайдено</h1>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

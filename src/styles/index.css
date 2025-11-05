@@ -2,15 +2,15 @@
 
 :root {
   --background-primary: #0a0a0a;
-  --background-secondary: #111;
+  --background-secondary: #111111;
   --background-card: #1a1a1a;
-  --text-primary: #fff;
+  --text-primary: #ffffff;
   --text-secondary: #b0b0b0;
-  --accent-green: #0fa;
-  --accent-purple: #a0f;
+  --accent-green: #00ffaa;
+  --accent-purple: #aa00ff;
   --accent-blue: #6366f1;
   --accent-cyan: #00d4ff;
-  --shadow-color: rgb(99 102 241 / 0.3);
+  --shadow-color: rgb(99 102 241 / 30%);
   --gradient: linear-gradient(to right, var(--accent-green), var(--accent-purple));
   --gradient-blue: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
 }

@@ -1,6 +1,4 @@
 import Articles from '../layouts/Articles';
-import Footer from '../layouts/Footer';
-import Header from '../layouts/Header';
 import Hero from '../layouts/Hero';
 
 const CategoryPage = () => {
@@ -12,7 +10,6 @@ const CategoryPage = () => {
 
   return (
     <>
-      <Header />
       <main>
         <Hero
           title={categoryData.title}
@@ -20,7 +17,6 @@ const CategoryPage = () => {
         />
         <Articles />
       </main>
-      <Footer />
     </>
   );
 };

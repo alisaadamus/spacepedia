@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import { useAuth } from '../context/AuthContext';
-import Header from '../layouts/Header';
 import './Auth.css';
 
 const SignUp = () => {
@@ -36,7 +35,6 @@ const SignUp = () => {
 
   return (
     <>
-      <Header />
       <main className="auth-main">
         <div className="auth-container">
           <div className="auth-card">

@@ -1,12 +1,9 @@
 import Categories from '../layouts/Categories.jsx';
-import Footer from '../layouts/Footer.jsx';
-import Header from '../layouts/Header.jsx';
 import Hero from '../layouts/Hero.jsx';
 
 function MainPage() {
   return (
     <>
-      <Header />
       <main>
         <Hero
           title="Welcome to Spacepedia"
@@ -15,7 +12,6 @@ function MainPage() {
         />
         <Categories />
       </main>
-      <Footer />
     </>
   );
 }

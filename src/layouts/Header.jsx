@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { NavLink } from "react-router-dom";
 import { useAuth } from '../context/AuthContext';
 import './Header.css';
 
@@ -42,15 +43,32 @@ const Header = () => {
         </div>
 
         <nav className="navigation">
-          <a href="/" className="nav-link active">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
             Головна
-          </a>
-          <a href="/category" className="nav-link">
+          </NavLink>
+
+          <NavLink
+            to="/category"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
             Категорії
-          </a>
-          <a href="/" className="nav-link">
+          </NavLink>
+
+          <NavLink
+            to="/contacts"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
             Контакти
-          </a>
+          </NavLink>
         </nav>
 
         <div className="user-menu" ref={dropdownRef}>

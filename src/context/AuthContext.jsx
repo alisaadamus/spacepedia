@@ -1,13 +1,24 @@
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut
+} from 'firebase/auth';
+
+import {
+  get,
+  ref,
+  set
+} from 'firebase/database';
+
 import { createContext, useContext, useEffect, useState } from 'react';
-import { authService } from '../api/auth';
+import { auth, db } from '../firebase';
 
 const AuthContext = createContext();
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth має використовувати AuthProvider');
-  }
+  if (!context) throw new Error('useAuth має використовуватися всередині AuthProvider');
   return context;
 };
 
@@ -18,11 +29,24 @@ export const AuthProvider = ({ children }) => {
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
-    const user = authService.getCurrentUser();
-    if (user) {
-      setCurrentUser(user);
-    }
-    setIsLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const userRef = ref(db, `users/${firebaseUser.uid}`);
+        const snapshot = await get(userRef);
+        const data = snapshot.exists() ? snapshot.val() : {};
+
+        setCurrentUser({
+          uid: firebaseUser.uid,
+          email: firebaseUser.email,
+          login: data.login || null
+        });
+      } else {
+        setCurrentUser(null);
+      }
+      setIsLoading(false);
+    });
+
+    return unsubscribe;
   }, []);
 
   const clearMessages = () => {
@@ -30,60 +54,81 @@ export const AuthProvider = ({ children }) => {
     setSuccess('');
   };
 
-  const login = async (credentials) => {
+  const login = async ({ email, password }) => {
     try {
       setIsLoading(true);
       clearMessages();
-      const result = await authService.login(credentials);
-      setCurrentUser(result.user);
-      setSuccess('Успішно!');
-      return result;
-    } catch (error) {
-      setError(error.message);
-      throw error;
+
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      const userRef = ref(db, `users/${user.uid}`);
+      const snapshot = await get(userRef);
+      const data = snapshot.exists() ? snapshot.val() : {};
+
+      setCurrentUser({
+        uid: user.uid,
+        email: user.email,
+        login: data.login || null
+      });
+
+      setSuccess("Успішний вхід!");
+      return user;
+
+    } catch (err) {
+      setError(err.message);
+      throw err;
     } finally {
       setIsLoading(false);
     }
   };
 
-  const register = async (userData) => {
+  const register = async ({ email, password, login }) => {
     try {
       setIsLoading(true);
       clearMessages();
-      const result = await authService.register(userData);
-      setCurrentUser(result.user);
-      setSuccess('Успішно!');
-      return result;
-    } catch (error) {
-      setError(error.message);
-      throw error;
+
+      const { user } = await createUserWithEmailAndPassword(auth, email, password);
+
+      await set(ref(db, `users/${user.uid}`), {
+        login,
+        email
+      });
+
+      setCurrentUser({
+        uid: user.uid,
+        email: user.email,
+        login
+      });
+
+      setSuccess("Успішна реєстрація!");
+      return user;
+
+    } catch (err) {
+      setError(err.message);
+      throw err;
     } finally {
       setIsLoading(false);
     }
   };
 
-  const logout = () => {
-    authService.logout();
+  const logout = async () => {
+    await signOut(auth);
     setCurrentUser(null);
-    setSuccess('Успішно!');
-    setError('');
-  };
-
-  const value = {
-    currentUser,
-    isLoading,
-    error,
-    success,
-    login,
-    register,
-    logout,
-    isAuthenticated: !!currentUser,
-    clearMessages
+    setSuccess('Вихід виконано успішно');
   };
 
   return (
-    <AuthContext.Provider value={value}>
-      {children}
+    <AuthContext.Provider value={{
+      currentUser,
+      isLoading,
+      error,
+      success,
+      login,
+      register,
+      logout,
+      isAuthenticated: !!currentUser,
+      clearMessages
+    }}>
+      {!isLoading && children}
     </AuthContext.Provider>
   );
 };

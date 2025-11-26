@@ -7,28 +7,40 @@ import './Auth.css';
 const SignUp = () => {
   const { register, isLoading, error, success } = useAuth();
   const [formData, setFormData] = useState({
-    email: '',
-    login: '',
-    password: '',
-    confirmPassword: ''
+    email: "",
+    login: "",
+    password: "",
+    confirmPassword: ""
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setFormData(prev => ({
+      ...prev,
       [e.target.name]: e.target.value
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Паролі не співпадають");
+      return;
+    }
+
     try {
-      await register(formData);
+      await register({
+        email: formData.email,
+        login: formData.login,
+        password: formData.password
+      });
+
       setTimeout(() => {
-        window.location.href = '/';
-      }, 1500)
-    } catch (error) {
-      console.error('Registration error:', error);
+        window.location.href = "/";
+      }, 1500);
+
+    } catch (err) {
+      console.error("Registration error:", err);
     }
   };
 

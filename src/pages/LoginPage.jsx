@@ -6,9 +6,10 @@ import './Auth.css';
 
 const LoginPage = () => {
   const { login, isLoading, error, success } = useAuth();
+
   const [formData, setFormData] = useState({
-    login: '',
-    password: ''
+    email: "",
+    password: ""
   });
 
   const handleChange = (e) => {
@@ -20,17 +21,17 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+
     try {
-      const result = await login(formData);
-      console.log('Login successful:', result);
+      await login(formData);
       setTimeout(() => {
-        window.location.href = '/';
+        window.location.href = "/";
       }, 1500);
     } catch (error) {
-      console.error('Login error:', error)
+      console.error("Login error:", error);
     }
   };
+
 
   return (
     <>
@@ -40,10 +41,10 @@ const LoginPage = () => {
             <h2 className="auth-title">Авторизація</h2>
             <form className="auth-form" onSubmit={handleSubmit}>
               <Input
-                name="login"
-                placeholder="Логін або email..."
+                name="email"
+                placeholder="Email..."
                 type="text"
-                value={formData.login}
+                value={formData.email}
                 onChange={handleChange}
                 required
               />

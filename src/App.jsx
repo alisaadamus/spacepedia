@@ -20,9 +20,10 @@ function App() {
             <Route path="/article" element={<ArticlePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+
+            <Route path="*" element={<h1 style={{ textAlign: "center", marginTop: "2rem" }}>404 — Сторінку не знайдено</h1>} />
           </Route>
 
-          <Route path="*" element={<h1 style={{ textAlign: "center", marginTop: "2rem" }}>404 — Сторінку не знайдено</h1>} />
         </Routes>
 
       </BrowserRouter>

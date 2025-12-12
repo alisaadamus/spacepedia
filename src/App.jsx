@@ -11,7 +11,7 @@ import SignUpPage from './pages/SignUpPage';
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/spacepedia">
         <ScrollToTop />
         <Routes>
           <Route element={<MainLayout />}>

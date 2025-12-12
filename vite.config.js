@@ -13,4 +13,5 @@ export default defineConfig({
     requireEnv: false,
   })
   ],
+  base: '/spacepedia/',
 })
